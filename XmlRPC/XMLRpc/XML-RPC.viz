@@ -1,0 +1,31 @@
+digraph finite_state_machine {
+	rankdir=LR;
+	size="10!";
+	splines="true";
+
+	node [shape = note]; Data_1 Data_2 Data_3 Data_4;
+	node [shape = doublecircle]; XML_1 XML_2;
+	Data_1 [label = "Data"];
+	Data_2 [label = "Data"];
+	Data_3 [label = "Data"];
+	Data_4 [label = "Data"];
+	XML_1 [label = "XML"];
+	XML_2 [label = "XML"];
+
+	subgraph cluster_xmlrpc {
+		style=dashed;
+		color=black;
+		bgcolor=lightgrey;
+		label="XML-RPC";
+
+		XML_1 -> XML_2 [label="HTTP(S)"];
+	}
+
+	Data_1 -> XML_1 [label="Serialize"];
+	Data_2 -> XML_1 [label="Serialize"];
+	XML_2 -> Data_3 [label="Deserialize"];
+	XML_2 -> Data_4 [label="Deserialize"];
+
+
+}
+}

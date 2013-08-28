@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="TransformResponse.xslt"?>
+<methodResponse>
+   <fault>
+      <value>
+         <struct>
+            <member>
+               <name>faultString</name>
+               <value>
+                  <string>
+                     Application failed during request deserialization:
+                     syntax error at line 1, column 0, byte 0 at /usr/lib64/perl5/vendor_perl/XML/Parser.pm line 187
+                  </string>
+               </value>
+            </member>
+            <member>
+               <name>faultCode</name>
+               <value>
+                  <string>Client</string>
+               </value>
+            </member>
+         </struct>
+      </value>
+   </fault>
+   <params>
+      <param>
+         <value>
+            <struct>
+               <member>
+                  <name>version</name>
+                  <value>
+                     <string>4.2.6+</string>
+                  </value>
+               </member>
+            </struct>
+         </value>
+      </param>
+   </params>
+</methodResponse>
