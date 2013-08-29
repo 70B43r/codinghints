@@ -27,7 +27,7 @@ namespace tobaer.CSharp.codinghints.XmlRpc.Part2
       [Test]
       public void Should_Query_Version()
       {
-         var requestObj = new Request { Method = "Bugzilla.version1" };
+         var requestObj = new Request { Method = "Bugzilla.version" };
 
          byte[] requestData;
          using (var memStream = new MemoryStream())
