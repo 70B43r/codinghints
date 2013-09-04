@@ -14,7 +14,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
 using NUnit.Framework;
-using XMLRpcTest;
 using log4net;
 
 namespace tobaer.CSharp.codinghints.XmlRpc.Part2

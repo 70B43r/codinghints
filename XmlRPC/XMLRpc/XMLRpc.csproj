@@ -89,6 +89,7 @@
     <Compile Include="Part2\Fault.cs" />
     <Compile Include="Part2\Member.cs" />
     <Compile Include="Part1\XmlRpc.cs" />
+    <Compile Include="Part2\Response.cs" />
     <Compile Include="Part3\IBugzilla.cs" />
     <Compile Include="Part3\IUser.cs" />
     <Compile Include="Part3\LogIn.cs" />
@@ -105,7 +106,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fluent\RequestFluentInterface.cs" />
-    <Compile Include="Part2\Response.cs" />
     <Compile Include="TestSetup.cs" />
     <Compile Include="XmlSerializer.cs" />
   </ItemGroup>

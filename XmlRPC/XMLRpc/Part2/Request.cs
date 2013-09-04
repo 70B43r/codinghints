@@ -8,11 +8,12 @@
 // Published under the MIT License. See license.rtf or http://www.opensource.org/licenses/mit-license.php.
 //
 //////////////////////////////////////////////////////////////////////////////////
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace XMLRpcTest
+namespace tobaer.CSharp.codinghints.XmlRpc.Part2
 {
    [XmlRoot("methodCall", Namespace = "")]
    public class Request

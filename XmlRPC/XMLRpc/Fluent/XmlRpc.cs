@@ -9,8 +9,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 using NUnit.Framework;
-using XMLRpcTest;
 using log4net;
+using tobaer.CSharp.codinghints.XmlRpc.Part2;
 
 namespace tobaer.CSharp.codinghints.XmlRpc.Fluent
 {

@@ -8,12 +8,12 @@
 // Published under the MIT License. See license.rtf or http://www.opensource.org/licenses/mit-license.php.
 //
 //////////////////////////////////////////////////////////////////////////////////
+
 using System;
 using System.IO;
-using System.Net;
-using XMLRpcTest;
+using tobaer.CSharp.codinghints.XmlRpc.Part2;
 
-namespace tobaer.CSharp.codinghints.XmlRpc
+namespace tobaer.CSharp.codinghints.XmlRpc.Fluent
 {
    internal static class RequestFluent
    {

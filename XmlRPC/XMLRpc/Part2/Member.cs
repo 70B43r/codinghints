@@ -1,8 +1,18 @@
+//////////////////////////////////////////////////////////////////////////////////
+//
+// Project            : XMLRpc
+// Description        : Member values.
+//
+// Copyright          : (c) 2013 Torsten Bär
+//
+// Published under the MIT License. See license.rtf or http://www.opensource.org/licenses/mit-license.php.
+//
+//////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections;
 using System.Xml.Serialization;
 
-namespace XMLRpcTest
+namespace tobaer.CSharp.codinghints.XmlRpc.Part2
 {
    public class Member
    {

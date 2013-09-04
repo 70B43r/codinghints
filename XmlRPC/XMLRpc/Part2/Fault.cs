@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using XMLRpcTest;
 
 namespace tobaer.CSharp.codinghints.XmlRpc.Part2
 {

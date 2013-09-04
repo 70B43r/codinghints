@@ -1,19 +1,17 @@
-//////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////
 //
 // Project            : XMLRpc
-// Description        : Response data contracts.
+// Description        : Response data.
 //
-// Copyright          : (c) 2013 Torsten B�r
+// Copyright          : (c) 2013 Torsten Bär
 //
 // Published under the MIT License. See license.rtf or http://www.opensource.org/licenses/mit-license.php.
 //
 //////////////////////////////////////////////////////////////////////////////////
-using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using tobaer.CSharp.codinghints.XmlRpc.Part2;
 
-namespace XMLRpcTest
+namespace tobaer.CSharp.codinghints.XmlRpc.Part2
 {
    [XmlRoot("methodResponse", Namespace = "")]
    public class Response
@@ -22,7 +20,7 @@ namespace XMLRpcTest
       public Fault Fault { get; set; }
 
       [XmlElement("params", Namespace = "")]
-      public List<XMLRpcTest.ResponseParams> Params { get; set; }
+      public List<ResponseParams> Params { get; set; }
    }
 
    public class ResponseParams
