@@ -15,25 +15,22 @@ using System.Xml.Serialization;
 
 namespace tobaer.CSharp.codinghints.XmlRpc.Part2
 {
-   [XmlRoot("methodCall", Namespace = "")]
-   public class Request
-   {
-      [XmlElement("methodName", Namespace = "")]
-      public string Method { get; set; }
+	[XmlRoot("methodCall", Namespace = "")]
+	public class Request : MethodCall
+	{
+		[XmlArray("params", Namespace = ""), XmlArrayItem("param", Namespace = "")]
+		public List<Param> Params { get; set; }
+	}
 
-      [XmlArray("params", Namespace = ""), XmlArrayItem("param", Namespace = "")]
-      public List<Param> Params { get; set; }
-   }
+	public class Param
+	{
+		[XmlElement("value", Namespace = "")]
+		public Value Value { get; set; }
+	}
 
-   public class Param
-   {
-      [XmlElement("value", Namespace = "")]
-      public Value Value { get; set; }
-   }
-
-   public class Value
-   {
-      [XmlArray("struct", Namespace = ""), XmlArrayItem("member", Namespace = "")]
-      public List<Member> Member { get; set; }
-   }
+	public class Value
+	{
+		[XmlArray("struct", Namespace = ""), XmlArrayItem("member", Namespace = "")]
+		public List<Member> Member { get; set; }
+	}
 }

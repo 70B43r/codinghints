@@ -60,7 +60,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CookComputing.XmlRpcV2">
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -89,7 +90,11 @@
     <Compile Include="Part2\Fault.cs" />
     <Compile Include="Part2\Member.cs" />
     <Compile Include="Part1\XmlRpc.cs" />
+    <Compile Include="Part2\MethodCall.cs" />
+    <Compile Include="Part2\SimpleMethod\MethodCallArgument.cs" />
     <Compile Include="Part2\Response.cs" />
+    <Compile Include="Part2\SimpleMethod\SimpleCall.cs" />
+    <Compile Include="Part2\SimpleMethod\MethodCallValue.cs" />
     <Compile Include="Part3\IBugzilla.cs" />
     <Compile Include="Part3\IUser.cs" />
     <Compile Include="Part3\LogIn.cs" />
