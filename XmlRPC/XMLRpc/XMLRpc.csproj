@@ -95,6 +95,7 @@
     <Compile Include="Part2\Response.cs" />
     <Compile Include="Part2\SimpleMethod\SimpleCall.cs" />
     <Compile Include="Part2\SimpleMethod\MethodCallValue.cs" />
+    <Compile Include="Part3\BugComments.cs" />
     <Compile Include="Part3\IBugzilla.cs" />
     <Compile Include="Part3\IUser.cs" />
     <Compile Include="Part3\LogIn.cs" />
@@ -119,9 +120,6 @@
     <None Include="ClassDiagram_Response.cd" />
     <None Include="ClassDiagram_Request.cd" />
     <None Include="packages.config" />
-    <None Include="Userdata.local.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

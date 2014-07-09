@@ -12,6 +12,7 @@
 using System;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using CookComputing.XmlRpc;
 using NUnit.Framework;
 using log4net;
@@ -28,6 +29,30 @@ namespace tobaer.CSharp.codinghints.XmlRpc.Part3
       {
          var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
          Log.InfoFormat("Received: {0}", bugzilla.Version().Version);
+      }
+
+      [Test]
+      public void Query_Bug_Comment([Random(1, 415555, 5)] int id)
+      {
+         var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
+
+         var bugComments = bugzilla.BugComments(new[] { id });
+
+         var commentsArray = ((object[])((XmlRpcStruct)bugComments.Bug[id.ToString()])["comments"]);
+
+         Log.InfoFormat("received {0} comments", commentsArray.Length);
+
+         var stringBuilder = new StringBuilder();
+
+         foreach (var comment in commentsArray.OfType<XmlRpcStruct>())
+         {
+            var text = (string)comment["text"];
+            stringBuilder.AppendFormat("{0} ({2}) :{1}", comment["author"],
+                                       text.Substring(0, Math.Min(100, text.Length)), comment["creation_time"]);
+            stringBuilder.AppendLine();
+         }
+
+         Log.Info(stringBuilder);
       }
 
       [Test]

@@ -30,5 +30,19 @@ namespace tobaer.CSharp.codinghints.XmlRpc.Part1
          using (var streamReader = new StreamReader(memoryStream))
             Log.InfoFormat("received; {0}", streamReader.ReadToEnd());
       }
+
+      [Test]
+      public void Query_Bug_Comment([Values(415555)]int id)
+      {
+         byte[] requestData =
+            Encoding.ASCII.GetBytes("<?xml version=\"1.0\"?><methodCall><methodName>Bug.comments</methodName>" +
+                                    "<params><param><value><struct><member><name>ids</name><value><i4>" + id +
+                                    "</i4></value></member></struct></value></param></params>" +
+                                    "</methodCall>");
+
+         using (var memoryStream = QueryHelper.QueryData(requestData))
+         using (var streamReader = new StreamReader(memoryStream))
+            Log.InfoFormat("received; {0}", streamReader.ReadToEnd());
+      }
    }
 }

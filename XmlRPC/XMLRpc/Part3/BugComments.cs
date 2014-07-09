@@ -13,13 +13,9 @@ using CookComputing.XmlRpc;
 
 namespace tobaer.CSharp.codinghints.XmlRpc.Part3
 {
-   [XmlRpcUrl("https://bugzilla.mozilla.org/xmlrpc.cgi")]
-   public interface IBugzilla : IXmlRpcProxy
+   public class BugComments
    {
-      [XmlRpcMethod("Bugzilla.version")]
-      VersionResult Version();
-
-      [XmlRpcMethod("Bug.comments", StructParams = true)]
-      BugComments BugComments(int[] ids);
+      [XmlRpcMember("bugs")]
+      public XmlRpcStruct Bug { get; set; }
    }
 }
