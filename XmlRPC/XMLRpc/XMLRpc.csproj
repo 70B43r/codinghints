@@ -68,6 +68,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -95,7 +96,8 @@
     <Compile Include="Part2\Response.cs" />
     <Compile Include="Part2\SimpleMethod\SimpleCall.cs" />
     <Compile Include="Part2\SimpleMethod\MethodCallValue.cs" />
-    <Compile Include="Part3\BugComments.cs" />
+    <Compile Include="Part3\Bugs.cs" />
+    <Compile Include="Part3\DynamicRpcObject.cs" />
     <Compile Include="Part3\IBugzilla.cs" />
     <Compile Include="Part3\IUser.cs" />
     <Compile Include="Part3\LogIn.cs" />

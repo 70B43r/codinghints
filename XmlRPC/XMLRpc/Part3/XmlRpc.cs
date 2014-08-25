@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////////////////////////////////////
 //
 // Project            : XMLRpc
-// Description        : Part 2 of xml rpc.
+// Description        : Part 3 of xml rpc.
 //
 // Copyright          : (c) 2013 Torsten Bär
 //
@@ -19,84 +19,112 @@ using log4net;
 
 namespace tobaer.CSharp.codinghints.XmlRpc.Part3
 {
-   [TestFixture]
-   public sealed class XmlRpc
-   {
-      private static readonly ILog Log = LogManager.GetLogger(typeof(XmlRpc));
+	using System.Dynamic;
 
-      [Test]
-      public void Should_Query_Version()
-      {
-         var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
-         Log.InfoFormat("Received: {0}", bugzilla.Version().Version);
-      }
+	[TestFixture]
+	public sealed class XmlRpc
+	{
+		private static readonly ILog Log = LogManager.GetLogger(typeof(XmlRpc));
 
-      [Test]
-      public void Query_Bug_Comment([Random(1, 415555, 5)] int id)
-      {
-         var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
+		[Test]
+		public void Should_Query_Version()
+		{
+			var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
+			Log.InfoFormat("Received: {0}", bugzilla.Version().Version);
+		}
 
-         var bugComments = bugzilla.BugComments(new[] { id });
+		[Test]
+		public void Query_Bug_Comment([Random(1, 415555, 5)] int id)
+		{
+			var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
 
-         var commentsArray = ((object[])((XmlRpcStruct)bugComments.Bug[id.ToString()])["comments"]);
+			var bugComments = bugzilla.BugComments(new[] { id });
 
-         Log.InfoFormat("received {0} comments", commentsArray.Length);
+			var commentsArray = ((object[])((XmlRpcStruct)bugComments.Bug[id.ToString()])["comments"]);
 
-         var stringBuilder = new StringBuilder();
+			Log.InfoFormat("received {0} comments", commentsArray.Length);
 
-         foreach (var comment in commentsArray.OfType<XmlRpcStruct>())
-         {
-            var text = (string)comment["text"];
-            stringBuilder.AppendFormat("{0} ({2}) :{1}", comment["author"],
-                                       text.Substring(0, Math.Min(100, text.Length)), comment["creation_time"]);
-            stringBuilder.AppendLine();
-         }
+			var stringBuilder = new StringBuilder();
 
-         Log.Info(stringBuilder);
-      }
+			foreach (var comment in commentsArray.OfType<XmlRpcStruct>())
+			{
+				var text = (string)comment["text"];
+				stringBuilder.AppendFormat("{0} ({2}) :{1}", comment["author"],
+													text.Substring(0, Math.Min(100, text.Length)), comment["creation_time"]);
+				stringBuilder.AppendLine();
+			}
 
-      [Test]
-      public void Should_Query_User()
-      {
-         var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
-         var versionResult = bugzilla.Version();
+			Log.Info(stringBuilder);
+		}
 
-         Log.InfoFormat("Bugzilla version: {0}", versionResult.Version);
+		[Test]
+		public void Query_Bug_with_reduced_fields([Random(1, 415555, 5)] int id)
+		{
+			var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
 
-         try
-         {
-            var user = XmlRpcProxyGen.Create<IUser>();
+			var fields = new[] { "id", "creator", "summary" };
+			var rpcStruct = bugzilla.GetBug(new[] { id }, fields);
 
-            var logIn = user.LogIn(new LogIn
-                                   {
-                                      User = ConfigurationManager.AppSettings["user"],
-                                      Password = ConfigurationManager.AppSettings["password"]
-                                   });
+			var bugsArray = rpcStruct["bugs"] as object[];
+			Assert.That(bugsArray, Is.Not.Null);
 
-            Log.InfoFormat("logged in as {0}", logIn.Id);
+			if (bugsArray.Length == 0)
+				Assert.Inconclusive("No bugs available");
 
-            user.CookieContainer.Add(user.ResponseCookies);
+			var bugItem = (XmlRpcStruct)bugsArray.First();
 
-            var userInfo = user.GetUserInfo(new UserInfoRequest { Ids = new[] { logIn.Id }, });
+			foreach (var field in bugItem.Keys.OfType<string>())
+			{
+				Assert.That(fields.Any(f => field.StartsWith(f)), Is.True, "Field {0} not requested", field);
+			}
 
-            if (userInfo.UserInfos.Any())
-            {
-               var first = userInfo.UserInfos.First();
+			dynamic rpcResult = new DynamicRpcObject(rpcStruct);
+			foreach (var bug in rpcResult.Bugs)
+				Log.InfoFormat("{0} was created by {1}: {2}", bug.Id, bug.Creator, bug.Summary);
+		}
 
-               Log.InfoFormat("I'm {0}", first.RealName);
-            }
-            else
-            {
-               Log.Info("No user");
-            }
+		[Test]
+		public void Should_Query_User()
+		{
+			var bugzilla = XmlRpcProxyGen.Create<IBugzilla>();
+			var versionResult = bugzilla.Version();
 
-            user.LogOut();
-         }
-         catch (Exception exception)
-         {
-            Log.Error("error retrieving user info", exception);
+			Log.InfoFormat("Bugzilla version: {0}", versionResult.Version);
 
-         }
-      }
-   }
+			try
+			{
+				var user = XmlRpcProxyGen.Create<IUser>();
+
+				var logIn = user.LogIn(new LogIn
+											  {
+												  User = ConfigurationManager.AppSettings["user"],
+												  Password = ConfigurationManager.AppSettings["password"]
+											  });
+
+				Log.InfoFormat("logged in as {0}", logIn.Id);
+
+				user.CookieContainer.Add(user.ResponseCookies);
+
+				var userInfo = user.GetUserInfo(new UserInfoRequest { Ids = new[] { logIn.Id }, });
+
+				if (userInfo.UserInfos.Any())
+				{
+					var first = userInfo.UserInfos.First();
+
+					Log.InfoFormat("I'm {0}", first.RealName);
+				}
+				else
+				{
+					Log.Info("No user");
+				}
+
+				user.LogOut();
+			}
+			catch (Exception exception)
+			{
+				Log.Error("error retrieving user info", exception);
+
+			}
+		}
+	}
 }
